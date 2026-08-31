@@ -1,0 +1,250 @@
+/* ------------------------------------------------------------------
+   Seceda Ridge Walk — visual style
+   A digital brochure in the manner of an Australian national parks
+   track guide: deep green masthead, white fact cards on sand, a
+   yellow alert strip, generous type.
+   ------------------------------------------------------------------ */
+
+:root{
+  --green-900:#0B3B24;
+  --green-700:#14563A;
+  --green-500:#1F7A4C;
+  --green-050:#EAF2EC;
+  --sand:#F2EFE7;
+  --card:#FFFFFF;
+  --ink:#1B1F1C;
+  --ink-2:#59635C;
+  --rule:#DCD8CC;
+  --amber:#FFC845;
+  --amber-ink:#3A2B00;
+  --track:#D2542A;
+  --you:#1668C4;
+  --shadow:0 1px 2px rgba(20,40,28,.07), 0 6px 18px rgba(20,40,28,.06);
+  --radius:6px;
+}
+
+*{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--sand);
+  color:var(--ink);
+  font:400 16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-variant-numeric:tabular-nums;
+}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+
+h1,h2,h3{line-height:1.2;letter-spacing:-.01em;margin:0}
+
+a{color:var(--green-700)}
+
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;z-index:2000;background:#fff;padding:10px 14px;border-radius:var(--radius)}
+
+:focus-visible{outline:3px solid var(--you);outline-offset:2px}
+
+/* ---------------------------------------------------------- masthead */
+
+.mast{background:var(--green-900);color:#fff}
+.mast-in{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
+.mark{flex:0 0 34px;height:34px;display:block}
+.mark svg{width:100%;height:100%;fill:#fff}
+.mark-txt{display:flex;flex-direction:column;line-height:1.25}
+.mark-txt b{font-size:15px;font-weight:700;letter-spacing:.02em}
+.mark-txt i{font-style:normal;font-size:12.5px;color:#A9C9B6;letter-spacing:.06em;text-transform:uppercase}
+
+/* -------------------------------------------------------------- hero */
+
+.hero{background:var(--green-700);color:#fff;padding:26px 0 30px;
+  border-bottom:5px solid var(--amber)}
+.eyebrow{margin:0 0 8px;font-size:12.5px;letter-spacing:.11em;text-transform:uppercase;color:#A9C9B6}
+.hero h1{font-size:clamp(30px,7vw,42px);font-weight:700}
+.lede{margin:12px 0 0;font-size:17px;color:#DCE9E0;max-width:56ch}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:18px 0 0;padding:0}
+.chips li{font-size:13.5px;font-weight:600;padding:5px 11px;border-radius:100px;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25)}
+
+/* ------------------------------------------------------------- alert */
+
+.alert{display:flex;gap:14px;background:var(--amber);color:var(--amber-ink);
+  border-radius:var(--radius);padding:16px 18px;margin:22px 0 0}
+.alert-ico{flex:0 0 24px;height:24px;margin-top:2px}
+.alert-ico svg{width:100%;height:100%;fill:var(--amber-ink)}
+.alert h2{font-size:16px;margin-bottom:4px}
+.alert p{margin:0;font-size:14.5px;line-height:1.55}
+.alert-count{margin-top:8px !important;font-weight:700}
+
+/* -------------------------------------------------------------- card */
+
+.card{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin:22px 0;overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;padding:15px 18px;border-bottom:1px solid var(--rule)}
+.card-head h2{font-size:17px}
+.pad{padding:0 18px 16px;margin:0}
+.fine{font-size:13px;color:var(--ink-2);line-height:1.5}
+.fine.pad{padding-top:12px}
+
+.sec-h{font-size:22px;margin:34px 0 6px}
+.sec-p{margin:0 0 14px;color:var(--ink-2);font-size:15px;max-width:60ch}
+.note{background:var(--green-050);border-left:4px solid var(--green-500);
+  border-radius:0 var(--radius) var(--radius) 0;padding:13px 16px;font-size:14.5px;margin:16px 0 0}
+
+/* ------------------------------------------------------------ buttons */
+
+.btn{font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:var(--radius);
+  border:1px solid var(--green-700);background:#fff;color:var(--green-700);
+  cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--green-050)}
+.btn-green{background:var(--green-700);color:#fff}
+.btn-green:hover{background:var(--green-900);color:#fff}
+.btn-ghost{border-color:var(--rule)}
+
+/* ---------------------------------------------------------------- map */
+
+.map-card{margin-top:22px}
+.basemaps{display:flex;gap:0;border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden}
+.basemaps button{font:inherit;font-size:13px;font-weight:600;padding:7px 13px;border:0;
+  background:#fff;color:var(--ink-2);cursor:pointer;border-right:1px solid var(--rule)}
+.basemaps button:last-child{border-right:0}
+.basemaps button[aria-pressed="true"]{background:var(--green-700);color:#fff}
+
+#map{height:min(62vh,520px);min-height:340px;background:#DDE6DC;z-index:0}
+
+.whereami{display:flex;align-items:center;gap:13px;padding:14px 18px;
+  border-top:1px solid var(--rule);background:#FAF9F5;flex-wrap:wrap}
+.wa-dot{flex:0 0 12px;height:12px;border-radius:50%;background:var(--ink-2);
+  box-shadow:0 0 0 4px rgba(89,99,92,.18)}
+.whereami.on .wa-dot{background:var(--you);box-shadow:0 0 0 4px rgba(22,104,196,.2)}
+.whereami.bad .wa-dot{background:#B3341F;box-shadow:0 0 0 4px rgba(179,52,31,.18)}
+.wa-txt{flex:1 1 220px;min-width:0;line-height:1.4}
+.wa-txt b{display:block;font-size:16px}
+.wa-txt span{font-size:13.5px;color:var(--ink-2)}
+
+.paste{padding:0 18px 16px;border-top:1px solid var(--rule);padding-top:14px}
+.paste label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px}
+.paste-row{display:flex;gap:8px}
+.paste input{flex:1;min-width:0;font:inherit;font-size:15px;padding:9px 11px;
+  border:1px solid var(--rule);border-radius:var(--radius);background:#fff;color:var(--ink)}
+.paste-help{margin:8px 0 0;font-size:13px;color:var(--ink-2);max-width:56ch}
+.paste-help.bad{color:#B3341F}
+
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;margin:0;
+  padding:13px 18px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--ink-2)}
+.legend li{display:flex;align-items:center;gap:9px}
+.legend i{flex:0 0 26px;height:12px;display:block}
+.lg-track{border-top:3px dashed var(--track);height:0 !important}
+.lg-stop{flex-basis:14px !important;height:14px !important;border-radius:50%;
+  background:var(--green-700);border:2px solid #fff;box-shadow:0 0 0 1px var(--green-700)}
+.lg-lift{flex-basis:14px !important;height:14px !important;border-radius:50%;
+  background:#4A453D;border:2px solid #fff;box-shadow:0 0 0 1px #4A453D}
+.lg-you{flex-basis:14px !important;height:14px !important;border-radius:50%;
+  background:var(--you);border:2px solid #fff;box-shadow:0 0 0 1px var(--you)}
+
+/* map marker glyphs */
+.pin{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;
+  background:var(--green-700);color:#fff;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.pin.lift{background:#4A453D}
+.leaflet-popup-content{font:inherit;font-size:14px;margin:12px 14px}
+.leaflet-popup-content b{display:block;font-size:15px}
+.leaflet-popup-content span{color:var(--ink-2);font-size:13px}
+
+/* -------------------------------------------------------------- grade */
+
+.grade{display:flex;gap:16px;align-items:flex-start;padding:18px}
+.grade-badge{flex:0 0 62px;height:62px;border-radius:var(--radius);background:var(--green-700);
+  color:#fff;display:grid;place-content:center;text-align:center;line-height:1}
+.grade-badge b{font-size:27px;font-weight:700;display:block}
+.grade-badge span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#A9C9B6}
+.grade h2{font-size:17px;margin-bottom:5px}
+.grade p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.grade .fine{margin-top:8px}
+
+/* --------------------------------------------------------- fact rows */
+
+.glance{margin:0;padding:0}
+.glance div{display:grid;grid-template-columns:170px 1fr;gap:16px;
+  padding:12px 18px;border-bottom:1px solid var(--rule)}
+.glance div:last-child{border-bottom:0}
+.glance dt{font-weight:600;font-size:14.5px}
+.glance dd{margin:0;font-size:14.5px;color:var(--ink-2)}
+@media (max-width:520px){
+  .glance div{grid-template-columns:1fr;gap:2px}
+}
+
+/* -------------------------------------------------------------- stops */
+
+.stops{list-style:none;margin:0;padding:0;background:var(--card);
+  border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.stops li{border-bottom:1px solid var(--rule)}
+.stops li:last-child{border-bottom:0}
+.stop{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center;
+  width:100%;text-align:left;background:none;border:0;padding:14px 16px;font:inherit;cursor:pointer}
+.stop:hover{background:var(--green-050)}
+.stop .pin{width:28px;height:28px;font-size:14px}
+.stop .nm{font-size:16px;font-weight:600;display:block}
+.stop .leg{font-size:13.5px;color:var(--ink-2)}
+.stop .dist{font-size:15px;font-weight:700;color:var(--you);white-space:nowrap}
+.stops li.open{background:var(--green-050)}
+.stops li.open .stop{background:none}
+.stops li.open{box-shadow:inset 4px 0 0 var(--green-500)}
+.detail{padding:0 16px 16px 60px;font-size:14.5px;color:var(--ink-2);max-width:64ch}
+.detail .alt{display:block;margin-top:6px;font-size:13px}
+.detail .btn{margin-top:11px;font-size:13px;padding:7px 12px}
+
+/* ------------------------------------------------------------ profile */
+
+.profile-wrap{padding:14px 10px 0}
+#profile{display:block;width:100%;height:auto}
+
+/* --------------------------------------------------------- facilities */
+
+.facs{list-style:none;margin:0;padding:16px 18px;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.facs li{display:flex;gap:11px;align-items:flex-start}
+.facs svg{flex:0 0 26px;height:26px;fill:none;stroke:var(--green-700);stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.facs b{display:block;font-size:14.5px}
+.facs span{font-size:13px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------ prepare */
+
+.prep{background:var(--green-050);border-color:#C9DDD0}
+.prep .card-head{border-bottom-color:#C9DDD0}
+.prep-list{list-style:none;margin:0;padding:14px 18px;display:grid;gap:10px}
+.prep-list li{display:flex;gap:11px;font-size:14.5px;align-items:flex-start}
+.prep-list li::before{content:"";flex:0 0 18px;height:18px;margin-top:3px;
+  background:var(--green-500);border-radius:50%;
+  -webkit-mask:no-repeat center/11px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M1 6l3.4 3.4L11 2.6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  mask:no-repeat center/11px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M1 6l3.4 3.4L11 2.6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+
+/* ------------------------------------------------------------- footer */
+
+.foot{background:var(--green-900);color:#C6D9CC;margin-top:34px;padding:26px 0 34px;font-size:14px}
+.foot p{margin:0 0 10px;max-width:64ch;line-height:1.6}
+.foot b{color:#fff}
+.foot .fine{color:#8FAE9B}
+
+/* -------------------------------------------------------------- print */
+
+@media print{
+  body{background:#fff}
+  .basemaps,.whereami,.paste,.btn,.skip,.leaflet-control-container{display:none !important}
+  .card,.stops{box-shadow:none;break-inside:avoid}
+  .detail{display:block !important}
+  .hero,.mast,.foot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #map{height:340px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+}
+
+/* Shown in place of the map if Leaflet cannot be reached. */
+.mapless{margin:0;padding:22px 18px;background:#F3F1EA;color:var(--ink-2);
+  font-size:14.5px;border-bottom:1px solid var(--rule)}
