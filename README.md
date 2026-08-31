@@ -41,6 +41,19 @@ because it cuts corners. The height profile is stretched onto `distanceKm` so
 the distance axis matches the walking distance quoted at the top of the page.
 If you replace `line` with a real GPX trace, set `distanceKm` to its length.
 
+## Publishing
+
+The site is served straight from the branch — there is no build step, so no
+deploy workflow is needed. To turn it on, once:
+
+1. Go to **Settings → Pages** in this repository.
+2. Under **Build and deployment**, set **Source** to *Deploy from a branch*.
+3. Choose branch **`claude/nsw-parks-hiking-map-6nhy7g`**, folder **`/ (root)`**, and Save.
+
+The first build takes a minute or two, after which the guide is at
+<https://sachabd.github.io/italy-parks-map/>. Every later push to the branch
+republishes it automatically.
+
 ## Running it locally
 
 Geolocation only works in a secure context, which means `https://` or
