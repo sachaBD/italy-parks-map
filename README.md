@@ -48,10 +48,17 @@ deploy workflow is needed. To turn it on, once:
 
 1. Go to **Settings → Pages** in this repository.
 2. Under **Build and deployment**, set **Source** to *Deploy from a branch*.
-3. Choose branch **`claude/nsw-parks-hiking-map-6nhy7g`**, folder **`/ (root)`**, and Save.
+   Not *GitHub Actions* — there is no deploy workflow, so that option would
+   publish nothing.
+3. Choose branch **`main`**, folder **`/ (root)`**, and Save.
+
+Pages has to be switched on by hand once. It cannot be enabled from a
+workflow: the Actions `GITHUB_TOKEN` has no admin rights on the repository,
+so creating the site is refused with *Resource not accessible by
+integration*.
 
 The first build takes a minute or two, after which the guide is at
-<https://sachabd.github.io/italy-parks-map/>. Every later push to the branch
+<https://sachabd.github.io/italy-parks-map/>. Every later push to `main`
 republishes it automatically.
 
 ## Running it locally
