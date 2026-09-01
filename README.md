@@ -1,8 +1,8 @@
-# Seceda Ridge Walk
+# Val Gardena walks
 
-A single-page walk guide for the Seceda ridge traverse in the Puez-Odle Nature
-Park, Val Gardena. Static HTML, CSS and JavaScript, built to be served from
-GitHub Pages. No build step and no framework.
+Walk guides for the lift-served high country above Val Gardena, in the
+Dolomites. Static HTML, CSS and JavaScript, served from GitHub Pages. No
+build step and no framework.
 
 Laid out as a digital brochure in the manner of an Australian national parks
 track guide: green masthead, yellow alert strip, an "at a glance" fact panel,
@@ -10,36 +10,65 @@ a track grade, numbered stops and a "before you go" checklist.
 
 ## What it does
 
-- **Track map** on Leaflet, with topographic, aerial and street base maps.
-  The route is drawn as a dashed track line with numbered stop markers.
+- **A landing page** listing every walk, with an overview map of all the
+  mapped tracks. Tap a track to open its guide.
+- **A guide per walk**: track map on Leaflet with topographic, aerial and
+  street base maps; the route as a dashed track line with numbered stops.
 - **Your location** from the browser, shown as a dot with an accuracy ring,
   plus a live straight-line distance to every stop and a plain-language note
   about the nearest one. Falls back to pasting coordinates if there is no fix.
-- **Height profile** generated from the stop altitudes.
+- **A height profile** generated from the stop altitudes.
 - Prints tidily, and still works with the map switched off.
 
 ## Files
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Page structure |
+| `index.html` | Landing page: overview map and the list of walks |
+| `walk.html` | One walk, chosen by `?walk=<id>` |
+| `assets/common.js` | Geometry, base maps, walk loading, geolocation |
+| `assets/home.js` | Landing page |
+| `assets/walk.js` | Walk page |
 | `assets/style.css` | All styling |
-| `assets/app.js` | Map, location, generated sections |
-| `assets/data.js` | **The walk itself.** Edit this to change anything |
+| `data/site.js` | Site title, intro, and **the register of walk ids** |
+| `data/<id>.js` | **One walk.** Everything the guide shows |
+| `data/TEMPLATE.js` | A documented blank to copy |
+| `tools/gpx-to-walk.js` | Turns a GPX track into walk data |
 | `assets/vendor/leaflet/` | Leaflet 1.9.4, vendored (BSD-2-Clause) |
 
-## Changing the walk
+## Adding a walk
 
-Everything readable on the page comes from `assets/data.js` — the stops and
-their coordinates, the fact panel, the alert, the facilities, the safety notes
-and the track line. Nothing else needs to be touched to describe a different
-walk.
+1. Copy `data/TEMPLATE.js` to `data/<id>.js` and fill it in. The template
+   documents every field.
+2. Add `'<id>'` to `WALK_IDS` in `data/site.js`.
 
-The `line` array is the drawn track. It is a hand-drawn indicative shape from
-the hut positions, not a GPS trace, and it measures shorter than the real path
-because it cuts corners. The height profile is stretched onto `distanceKm` so
-the distance axis matches the walking distance quoted at the top of the page.
-If you replace `line` with a real GPX trace, set `distanceKm` to its length.
+That is the whole procedure — both pages build themselves from the register.
+Ids from the URL are checked against `WALK_IDS` before they are turned into a
+file path, so a walk is only reachable once it is listed there.
+
+Anything left empty is left out of the page, so a walk can go up in stages. A
+walk with an empty `line` is shown as "route being mapped" rather than
+half-drawn, which is the intended state for a guide whose GPS trace has not
+arrived yet.
+
+### Getting the track line
+
+The `line` array is the drawn track. A GPX trace is easiest:
+
+```
+node tools/gpx-to-walk.js yourtrack.gpx
+```
+
+It prints a ready-to-paste `line`, `distanceKm`, `centre` and `zoom`, an
+elevation summary for the glance table, and any waypoints in the file as
+candidate stops. It simplifies the trace to about 60 points, which is plenty
+for a line that is drawn as indicative rather than as a survey trace.
+
+Without a GPX, a dozen hand-picked points that follow the shape of the path
+are enough. A hand-drawn line measures shorter than the real path because it
+cuts corners, so set `distanceKm` to the real walking distance — the height
+profile is scaled onto it so the axis agrees with the figure quoted at the top
+of the page.
 
 ## Publishing
 

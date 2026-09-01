@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seceda Ridge Walk — Puez-Odle Nature Park</title>
-<meta name="description" content="Track notes, map and live location for the Seceda ridge walk in the Puez-Odle Nature Park, Val Gardena, Dolomites.">
+<title>Val Gardena walks</title>
+<meta name="description" content="Walk guides for the lift-served high country above Val Gardena, with track maps and your live position.">
 <meta name="theme-color" content="#0B3B24">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<a class="skip" href="#map">Skip to the map</a>
+<a class="skip" href="#cards">Skip to the walks</a>
 
 <header class="mast">
   <div class="wrap mast-in">
@@ -21,8 +21,8 @@
       <svg viewBox="0 0 32 32"><path d="M2 26 L11 10 L16 19 L21 11 L30 26 Z"/><path d="M16 4 c3 3 3 6 0 8 c-3-2-3-5 0-8z" opacity=".75"/></svg>
     </span>
     <span class="mark-txt">
-      <b>Parco naturale Puez-Odle</b>
-      <i>Puez-Odle Nature Park</i>
+      <b id="siteOwner">Val Gardena</b>
+      <i id="siteRegion">Dolomites</i>
     </span>
   </div>
 </header>
@@ -31,129 +31,45 @@
 
 <section class="hero">
   <div class="wrap">
-    <p class="eyebrow" id="region"></p>
-    <h1 id="walkName"></h1>
-    <p class="lede" id="lede"></p>
-    <ul class="chips" id="chips"></ul>
+    <p class="eyebrow">Walk guides</p>
+    <h1 id="siteTitle">Val Gardena walks</h1>
+    <p class="lede" id="siteIntro"></p>
   </div>
 </section>
 
 <div class="wrap">
 
-  <aside class="alert" id="alert" hidden>
-    <span class="alert-ico" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M12 2 L23 21 H1 Z"/><rect x="11" y="8" width="2" height="7" fill="#3A2B00"/><rect x="11" y="17" width="2" height="2" fill="#3A2B00"/></svg>
-    </span>
-    <div>
-      <h2 id="alertTitle"></h2>
-      <p id="alertText"></p>
-      <p class="alert-count" id="gondolaCount"></p>
-    </div>
-  </aside>
-
-  <!-- ---------------------------------------------------- map -->
   <section class="card map-card">
     <div class="card-head">
-      <h2>Track map</h2>
-      <div class="basemaps" role="group" aria-label="Base map">
+      <h2>Where the walks are</h2>
+      <div class="basemaps" id="basemaps" role="group" aria-label="Base map">
         <button type="button" data-base="topo"   aria-pressed="true">Topographic</button>
         <button type="button" data-base="aerial" aria-pressed="false">Aerial</button>
         <button type="button" data-base="street" aria-pressed="false">Street</button>
       </div>
     </div>
-
-    <div id="map" tabindex="0" aria-label="Map of the Seceda ridge walk"></div>
-    <p class="mapless" id="mapless" hidden></p>
-
-    <div class="whereami" id="whereami">
-      <span class="wa-dot" aria-hidden="true"></span>
-      <div class="wa-txt">
-        <b id="waBig">Where am I?</b>
-        <span id="waSm">Turn on your location to see yourself on the track and how far the next hut is.</span>
-      </div>
-      <button type="button" id="locateBtn" class="btn btn-green">Show my location</button>
-    </div>
-
-    <div class="paste" id="paste" hidden>
-      <label for="coords">No location fix? Paste coordinates instead</label>
-      <div class="paste-row">
-        <input id="coords" type="text" inputmode="decimal" autocomplete="off" placeholder="46.6068, 11.7268">
-        <button type="button" id="setBtn" class="btn">Place me</button>
-      </div>
-      <p class="paste-help" id="pasteHelp">In Google Maps, press and hold your blue dot and copy the numbers that appear. A pasted map link works too.</p>
-    </div>
-
-    <ul class="legend">
-      <li><i class="lg-track"></i>Walking track (indicative)</li>
-      <li><i class="lg-stop"></i>Numbered stop</li>
-      <li><i class="lg-lift"></i>Lift station</li>
-      <li><i class="lg-you"></i>Your location</li>
-    </ul>
+    <div id="overview" tabindex="0" aria-label="Overview map of all the walks"></div>
+    <p class="mapless" id="overviewNote" hidden></p>
+    <p class="fine pad">Tap a track to open its guide.</p>
   </section>
 
-  <!-- --------------------------------------------------- grade -->
-  <section class="card grade" id="gradeCard">
-    <div class="grade-badge"><b id="gradeNum">3</b><span>Grade</span></div>
-    <div>
-      <h2 id="gradeTitle"></h2>
-      <p id="gradeDetail"></p>
-      <p class="fine">Graded using the Australian Walking Track Grading System.</p>
-    </div>
-  </section>
-
-  <!-- ------------------------------------------------ at a glance -->
-  <section class="card">
-    <div class="card-head"><h2>At a glance</h2></div>
-    <dl class="glance" id="glance"></dl>
-  </section>
-
-  <!-- ------------------------------------------------- the track -->
-  <section>
-    <h2 class="sec-h">Along the track</h2>
-    <p class="sec-p">Five stops, in walking order. Tap one for the detail and to find it on the map. Distances from you appear once your location is on.</p>
-    <ol class="stops" id="stops"></ol>
-    <p class="note" id="shorter"></p>
-  </section>
-
-  <!-- --------------------------------------------------- profile -->
-  <section class="card">
-    <div class="card-head"><h2>Height along the walk</h2></div>
-    <div class="profile-wrap"><svg id="profile" viewBox="0 0 640 210" role="img" aria-label="Elevation profile of the walk"></svg></div>
-    <p class="fine pad">Schematic. Heights are spot heights at the five stops, joined by straight lines, so the real ups and downs between them are not shown. Distances along the bottom are approximate.</p>
-  </section>
-
-  <!-- ------------------------------------------------ facilities -->
-  <section class="card">
-    <div class="card-head"><h2>Facilities</h2></div>
-    <ul class="facs" id="facs"></ul>
-  </section>
-
-  <!-- ---------------------------------------------- getting there -->
-  <section class="card">
-    <div class="card-head"><h2>Getting there and back</h2></div>
-    <dl class="glance" id="getting"></dl>
-    <p class="pad"><a class="btn btn-ghost" id="startLink" href="#" target="_blank" rel="noopener">Directions to the start</a></p>
-  </section>
-
-  <!-- --------------------------------------------------- prepare -->
-  <section class="card prep">
-    <div class="card-head"><h2>Before you go</h2></div>
-    <ul class="prep-list" id="prepare"></ul>
-  </section>
+  <h2 class="sec-h">The walks</h2>
+  <p class="sec-p">Each guide has a track map, notes for every stop, a height profile and your own position while you walk.</p>
+  <ul class="cards" id="cards"></ul>
 
 </div>
 </main>
 
 <footer class="foot">
   <div class="wrap">
-    <p><b>This is a personal walk guide, not an official park publication.</b> The track line is drawn by hand from hut positions and is indicative only — it is not a survey trace, and it will not keep you on the path in cloud. Carry a proper topographic map, and follow the yellow signposts at every junction.</p>
-    <p>Distances to stops are straight-line, so the walking distance is always longer. Hut and lift opening times change through the season and without notice.</p>
+    <p><b>Personal walk guides, not official park publications.</b> Track lines are indicative and will not keep you on the path in cloud. Carry a proper topographic map and follow the signposts.</p>
     <p class="fine">Emergency: 112. &nbsp;·&nbsp; Base maps © OpenStreetMap contributors, OpenTopoMap (CC-BY-SA) and Esri.</p>
   </div>
 </footer>
 
 <script src="assets/vendor/leaflet/leaflet.js"></script>
-<script src="assets/data.js"></script>
-<script src="assets/app.js"></script>
+<script src="data/site.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/home.js"></script>
 </body>
 </html>

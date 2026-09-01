@@ -25,6 +25,10 @@
 
 *{box-sizing:border-box}
 
+/* Any rule that sets `display` on a class outbids the browser's own
+   [hidden] rule, so state this once and loudly. */
+[hidden]{display:none !important}
+
 html{-webkit-text-size-adjust:100%}
 
 body{
@@ -114,6 +118,8 @@ a{color:var(--green-700)}
 .basemaps button[aria-pressed="true"]{background:var(--green-700);color:#fff}
 
 #map{height:min(62vh,520px);min-height:340px;background:#DDE6DC;z-index:0}
+.leaflet-control-attribution{font-size:10.5px;line-height:1.4}
+.leaflet-control-scale{margin-bottom:18px !important}
 
 .whereami{display:flex;align-items:center;gap:13px;padding:14px 18px;
   border-top:1px solid var(--rule);background:#FAF9F5;flex-wrap:wrap}
@@ -230,6 +236,45 @@ a{color:var(--green-700)}
 .foot b{color:#fff}
 .foot .fine{color:#8FAE9B}
 
+/* ------------------------------------------------------- landing page */
+
+.mark-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.mark-link:hover .mark-txt b{text-decoration:underline}
+
+.crumb{margin:0 0 10px;font-size:13.5px}
+.crumb a{color:#A9C9B6}
+.crumb a:hover{color:#fff}
+
+.cards{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:14px}
+
+.walkcard{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden}
+.walkcard a{display:flex;gap:0;text-decoration:none;color:inherit}
+.walkcard a:hover{background:var(--green-050)}
+.wc-swatch{flex:0 0 8px;background:var(--track)}
+.wc-body{flex:1;min-width:0;padding:15px 17px;display:block}
+.wc-region{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.wc-name{display:block;font-size:19px;font-weight:700;margin:3px 0 5px;color:var(--green-900)}
+.wc-card{display:block;font-size:14.5px;color:var(--ink-2);max-width:60ch}
+.wc-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.wc-chips span,.wc-chips b{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:100px;
+  background:var(--green-050);color:var(--green-700);border:1px solid #CFE0D5}
+.wc-chips .wc-flag{background:var(--amber);border-color:#E8B43C;color:var(--amber-ink)}
+.walkcard.is-draft .wc-name{color:var(--ink-2)}
+
+#overview{height:min(52vh,420px);min-height:300px;background:#DDE6DC;z-index:0}
+.pin.start{font-size:11px;line-height:1}
+
+/* ------------------------------------------------------- draft notice */
+
+.draft{background:#FFF8E6;border:1px solid #E8D9A8;border-left:4px solid var(--amber);
+  border-radius:var(--radius);padding:15px 18px;margin:22px 0 0}
+.draft h2{font-size:16px;margin-bottom:5px}
+.draft p{margin:0;font-size:14.5px;color:#5C4E22;max-width:64ch}
+
+.notfound{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);
+  padding:18px;margin:22px 0;font-size:15px}
+
 /* -------------------------------------------------------------- print */
 
 @media print{
@@ -238,7 +283,7 @@ a{color:var(--green-700)}
   .card,.stops{box-shadow:none;break-inside:avoid}
   .detail{display:block !important}
   .hero,.mast,.foot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  #map{height:340px}
+  #map,#overview{height:340px}
 }
 
 @media (prefers-reduced-motion:reduce){

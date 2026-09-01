@@ -1,10 +1,15 @@
 /* ---------------------------------------------------------------
-   Seceda ridge walk — track data
-   Edit this file to change the walk. Nothing else needs to change.
+   Seceda ridge walk
    Coordinates are WGS84 decimal degrees (lat, lon).
+   See data/TEMPLATE.js for what each field means.
    --------------------------------------------------------------- */
+(window.WALKS = window.WALKS || {})['seceda'] = {
 
-window.WALK = {
+  id:     'seceda',
+  status: 'published',
+  colour: '#D2542A',
+  card:   'The classic ridge traverse under the Odle spires, downhill nearly all the way, with three huts to stop at.',
+
 
   park:      'Parco naturale Puez-Odle',
   parkAlt:   'Puez-Odle Nature Park',
