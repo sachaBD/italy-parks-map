@@ -206,7 +206,7 @@
         const li = document.createElement('li');
         li.innerHTML =
           '<button type="button" class="stop" aria-expanded="false" aria-controls="detail-' + i + '">' +
-            '<span class="pin' + (s.kind === 'lift' ? ' lift' : '') + '">' + s.n + '</span>' +
+            '<span class="pin' + (s.kind ? ' ' + s.kind : '') + '">' + s.n + '</span>' +
             '<span><span class="nm"></span><span class="leg"></span></span>' +
             '<span class="dist" id="dist-' + i + '"></span>' +
           '</button>' +

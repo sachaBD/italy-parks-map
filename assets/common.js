@@ -149,7 +149,7 @@ window.NP = (function () {
   function stopIcon(stop) {
     return L.divIcon({
       className: '',
-      html: '<span class="pin' + (stop.kind === 'lift' ? ' lift' : '') + '">' + stop.n + '</span>',
+      html: '<span class="pin' + (stop.kind ? ' ' + stop.kind : '') + '">' + stop.n + '</span>',
       iconSize: [26, 26],
       iconAnchor: [13, 13],
       popupAnchor: [0, -14]

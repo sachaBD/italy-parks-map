@@ -55,7 +55,7 @@
   /* Only Gostner Schwaige has a verified position. The rest are turns,
      listed in order, deliberately without coordinates. */
   stops: [
-    { n: 1, name: 'Rifugio Saltner', alt: 1690,
+    { n: 1, name: 'Rifugio Saltner', alt: 1690, kind: 'hut',
       leg:  'The start, about 5 minutes west of Saltria',
       note: 'Head east on trail 30 to reach Saltria.' },
 
@@ -67,7 +67,7 @@
       leg:  'Stay straight on 30',
       note: 'The first place to go wrong. Trail 6 is the way you will come back later; for now keep straight ahead on 30.' },
 
-    { n: 4, name: 'Gostner Schwaige', alt: 1900,
+    { n: 4, name: 'Gostner Schwaige', alt: 1900, kind: 'hut',
       lat: 46.53872, lon: 11.63501,
       leg:  'Short left spur off 30 — about 3.5 km, 1 hour from Saltria',
       note: 'The hut, and the one point on this route with a confirmed position. Worth the stop. Afterwards drop back down to trail 30 the way you came up.' },

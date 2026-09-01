@@ -57,7 +57,12 @@
       lat: 46.60847, lon: 11.67625,
       leg:  'The peak standing over the northern side',
       note: 'Not on the route, but it is the summit above the outward leg and the thing you are walking beneath.' },
-    { n: 3, name: 'Western turn', alt: 0,
+    { n: 3, name: 'Utia de Resciesa / Raschötzhütte', alt: 2170,
+      lat: 46.60009, lon: 11.66327,
+      leg:  'About 1.4 km along the ridge, 20 to 30 minutes on the flat',
+      note: 'The refuge on the Resciesa alp, rebuilt and reopened in 2010. Two double rooms and three shared rooms sleeping 4, 8 and 14, so it works as an overnight as well as a lunch stop. Open roughly mid-May to mid-October, and again from December to April for the winter season. Its position here is worked out from the published distance west of the station rather than a surveyed coordinate, so expect it within a few hundred metres.',
+      kind: 'hut' },
+    { n: 4, name: 'Western turn', alt: 0,
       lat: 46.60068, lon: 11.65287,
       leg:  'The far end of the circuit',
       note: 'Where the outward leg turns and the return line starts back east, a little lower down the slope. The Rasciesa di Fuori summit, 2283 m, stands just above.' }
@@ -87,6 +92,8 @@
   ],
 
   facilities: [
+    ['food',    'Food and drink', 'Utia de Resciesa, about 1.4 km along the ridge'],
+    ['beds',    'Accommodation',  'Utia de Resciesa sleeps 30 across five rooms'],
     ['lift',    'Lift access',    'Resciesa funicular from Ortisei'],
     ['lookout', 'Lookouts',       'South the whole way, to Seceda and the Odle']
   ],

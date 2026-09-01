@@ -148,6 +148,8 @@ a{color:var(--green-700)}
   background:var(--green-700);border:2px solid #fff;box-shadow:0 0 0 1px var(--green-700)}
 .lg-lift{flex-basis:14px !important;height:14px !important;border-radius:50%;
   background:#4A453D;border:2px solid #fff;box-shadow:0 0 0 1px #4A453D}
+.lg-hut{flex-basis:14px !important;height:14px !important;border-radius:50%;
+  background:#A63A25;border:2px solid #fff;box-shadow:0 0 0 1px #A63A25}
 .lg-you{flex-basis:14px !important;height:14px !important;border-radius:50%;
   background:var(--you);border:2px solid #fff;box-shadow:0 0 0 1px var(--you)}
 
@@ -156,6 +158,7 @@ a{color:var(--green-700)}
   background:var(--green-700);color:#fff;font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 .pin.lift{background:#4A453D}
+.pin.hut{background:#A63A25}
 .leaflet-popup-content{font:inherit;font-size:14px;margin:12px 14px}
 .leaflet-popup-content b{display:block;font-size:15px}
 .leaflet-popup-content span{color:var(--ink-2);font-size:13px}
