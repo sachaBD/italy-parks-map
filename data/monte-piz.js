@@ -37,7 +37,12 @@
             'on made tracks and farm lanes. The distance rather than the terrain is what makes it a half day.'
   },
 
-  alert: null,
+  alert: {
+    title: 'Do not navigate by this track line',
+    text:  'The shape and length of this loop are right, but its position on the map is an estimate and is ' +
+           'known to be off — the line sits further south than the real route. Use it to see what the walk ' +
+           'looks like, not to find the path. Follow the signposts on the ground until this is corrected.'
+  },
 
   glance: [
     ['Distance',       '7.7 km, a loop returning to the start'],
