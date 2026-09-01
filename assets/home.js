@@ -48,7 +48,9 @@
       if (draft) {
         const b = document.createElement('b');
         b.className = 'wc-flag';
-        b.textContent = 'Route being mapped';
+        // A walk still being put together, versus one that is finished but
+        // deliberately has no track line to follow.
+        b.textContent = (w.status === 'draft') ? 'Route being mapped' : 'No track line';
         chips.appendChild(b);
       }
       (w.chips || []).slice(0, 3).forEach((c) => {

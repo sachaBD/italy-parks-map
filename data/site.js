@@ -13,4 +13,4 @@ window.SITE = {
 /* The register of walks. A walk only appears on the site once its id is
    listed here and data/<id>.js exists. Ids are also checked against this
    list before anything from the URL is turned into a file path. */
-window.WALK_IDS = ['seceda', 'monte-piz', 'saltria-return'];
+window.WALK_IDS = ['seceda', 'monte-piz', 'saltria-return', 'rasciesa'];
