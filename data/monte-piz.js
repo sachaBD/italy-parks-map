@@ -16,7 +16,7 @@
 (window.WALKS = window.WALKS || {})['monte-piz'] = {
 
   id:     'monte-piz',
-  status: 'draft',
+  status: 'published',
   colour: '#2E6E8E',
 
   name:    'Monte Piz – Schgaguler Hut',
@@ -51,20 +51,22 @@
   /* --- geometry still to come --------------------------------- */
 
   distanceKm: 7.7,
-  centre:     null,
+  centre:     [46.55159, 11.65236],
   zoom:       14,
   stops:      [],
-  line:       [],
+  line: [
+    [46.55950, 11.65800], [46.55410, 11.64131], [46.54369, 11.64075],
+    [46.54406, 11.64690], [46.54689, 11.65015], [46.54500, 11.66247],
+    [46.55159, 11.66103], [46.55609, 11.65518], [46.55880, 11.66396],
+    [46.55950, 11.65800]
+  ],
 
   /* --- practical, still to confirm ---------------------------- */
 
   facilities:   [],
   gettingThere: [],
   prepare:      [],
-  shorterOption: '',
+  shorterOption: 'The track line is traced by eye from the route map and positioned approximately, so treat it as the shape of the walk rather than a navigation aid.',
   lastLift:      null,
 
-  draftNote: 'The distance, climb and timing here are real, but the route itself is not mapped yet — ' +
-             'there is no track line and no stops, so there is nothing to navigate by. ' +
-             'The map and the stop-by-stop notes appear once a GPS trace is in.'
 };
