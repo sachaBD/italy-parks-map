@@ -3,10 +3,10 @@
    Figures from the komoot route listing; the track line traced from
    its map, which measures 5.13 km against a stated 5.30 km.
 
-   The POSITION of this loop is an estimate of the Resciesa funicular
-   top station and has not been verified, exactly like the Monte Piz
-   loop. Shape and size are right; the placement may be out by a few
-   hundred metres.
+   Position: anchored on the funicular top station as OpenStreetMap
+   maps it, read off a screenshot of this page by comparing the drawn
+   line against the terrain beneath it. The first placement was an
+   estimate and sat 658 m south-west of the station.
    --------------------------------------------------------------- */
 (window.WALKS = window.WALKS || {})['rasciesa'] = {
 
@@ -32,12 +32,7 @@
             'rather than the effort.'
   },
 
-  alert: {
-    title: 'The track line is positioned by estimate',
-    text:  'The shape and length of this circuit are traced from the route map and check out, but its position has not been ' +
-           'verified against a known coordinate. Treat the line as a picture of the walk, not as something to navigate by, ' +
-           'and follow the signposts on the ground.'
-  },
+  alert: null,
 
   glance: [
     ['Distance',       '5.3 km, a circuit returning to the start'],
@@ -49,46 +44,46 @@
   ],
 
   distanceKm: 5.3,
-  centre:     [46.59687, 11.66103],
+  centre:     [46.60081, 11.66745],
   zoom:       15,
 
   stops: [
-    { n: 1, name: 'Resciesa funicular, top station', alt: 2100,
-      lat: 46.59400, lon: 11.67300,
+    { n: 1, name: 'Resciesa funicular, top station', alt: 2122,
+      lat: 46.59794, lon: 11.67942,
       leg:  'The start and the finish',
       note: 'The funicular climbs straight out of Ortisei to the ridge. The circuit begins and ends here, so it can be walked either way round.',
       kind: 'lift' },
     { n: 2, name: 'Piz da Ciastel / Schlosskofel', alt: 2204,
-      lat: 46.60453, lon: 11.66983,
+      lat: 46.60847, lon: 11.67625,
       leg:  'The peak standing over the northern side',
       note: 'Not on the route, but it is the summit above the outward leg and the thing you are walking beneath.' },
     { n: 3, name: 'Western turn', alt: 0,
-      lat: 46.59674, lon: 11.64645,
+      lat: 46.60068, lon: 11.65287,
       leg:  'The far end of the circuit',
-      note: 'Where the outward leg turns and the return line starts back east, a little lower down the slope.' }
+      note: 'Where the outward leg turns and the return line starts back east, a little lower down the slope. The Rasciesa di Fuori summit, 2283 m, stands just above.' }
   ],
 
   line: [
-    [46.59400, 11.67300], [46.59484, 11.67328], [46.59460, 11.67223],
-    [46.59465, 11.67045], [46.59518, 11.66818], [46.59590, 11.66176],
-    [46.59621, 11.66135], [46.59626, 11.66100], [46.59626, 11.66075],
-    [46.59602, 11.66040], [46.59614, 11.65922], [46.59612, 11.65716],
-    [46.59624, 11.65597], [46.59609, 11.65576], [46.59607, 11.65541],
-    [46.59672, 11.65360], [46.59662, 11.65276], [46.59624, 11.65220],
-    [46.59650, 11.65147], [46.59684, 11.65109], [46.59674, 11.65060],
-    [46.59689, 11.65039], [46.59643, 11.64899], [46.59633, 11.64809],
-    [46.59648, 11.64732], [46.59631, 11.64697], [46.59715, 11.64711],
-    [46.59737, 11.64701], [46.59831, 11.64788], [46.59855, 11.64756],
-    [46.59898, 11.64756], [46.59917, 11.64784], [46.59910, 11.64809],
-    [46.59944, 11.64938], [46.59975, 11.64997], [46.59975, 11.65049],
-    [46.59941, 11.65091], [46.59948, 11.65172], [46.59934, 11.65210],
-    [46.59917, 11.65458], [46.59864, 11.65681], [46.59818, 11.65999],
-    [46.59768, 11.66128], [46.59742, 11.66292], [46.59708, 11.66421],
-    [46.59698, 11.66585], [46.59684, 11.66665], [46.59686, 11.66832],
-    [46.59653, 11.67017], [46.59681, 11.67066], [46.59674, 11.67122],
-    [46.59648, 11.67160], [46.59665, 11.67272], [46.59556, 11.67443],
-    [46.59561, 11.67453], [46.59544, 11.67488], [46.59523, 11.67509],
-    [46.59412, 11.67412], [46.59422, 11.67373], [46.59400, 11.67300]
+    [46.59794, 11.67942], [46.59878, 11.67970], [46.59854, 11.67865],
+    [46.59859, 11.67687], [46.59912, 11.67460], [46.59984, 11.66818],
+    [46.60015, 11.66777], [46.60020, 11.66742], [46.60020, 11.66717],
+    [46.59996, 11.66682], [46.60008, 11.66564], [46.60006, 11.66358],
+    [46.60018, 11.66239], [46.60003, 11.66218], [46.60001, 11.66183],
+    [46.60066, 11.66002], [46.60056, 11.65918], [46.60018, 11.65862],
+    [46.60044, 11.65789], [46.60078, 11.65751], [46.60068, 11.65702],
+    [46.60083, 11.65681], [46.60037, 11.65541], [46.60027, 11.65451],
+    [46.60042, 11.65374], [46.60025, 11.65339], [46.60109, 11.65353],
+    [46.60131, 11.65343], [46.60225, 11.65430], [46.60249, 11.65398],
+    [46.60292, 11.65398], [46.60311, 11.65426], [46.60304, 11.65451],
+    [46.60338, 11.65580], [46.60369, 11.65639], [46.60369, 11.65691],
+    [46.60335, 11.65733], [46.60342, 11.65814], [46.60328, 11.65852],
+    [46.60311, 11.66100], [46.60258, 11.66323], [46.60212, 11.66641],
+    [46.60162, 11.66770], [46.60136, 11.66934], [46.60102, 11.67063],
+    [46.60092, 11.67227], [46.60078, 11.67307], [46.60080, 11.67474],
+    [46.60047, 11.67659], [46.60075, 11.67708], [46.60068, 11.67764],
+    [46.60042, 11.67802], [46.60059, 11.67914], [46.59950, 11.68085],
+    [46.59955, 11.68095], [46.59938, 11.68130], [46.59917, 11.68151],
+    [46.59806, 11.68054], [46.59816, 11.68015], [46.59794, 11.67942]
   ],
 
   facilities: [
