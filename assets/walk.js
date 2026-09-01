@@ -10,6 +10,7 @@
   'use strict';
 
   const $ = (id) => document.getElementById(id);
+  const mapped = (s) => typeof s.lat === 'number' && typeof s.lon === 'number';
   const drop = (id) => { const el = $(id); if (el) el.remove(); };
   const has = (v) => Array.isArray(v) ? v.length > 0 : (v !== null && v !== undefined && v !== '');
 
@@ -99,8 +100,8 @@
     if (!has(W.glance) || !fillFacts($('glance'), W.glance)) drop('sec-glance');
     if (!has(W.gettingThere) || !fillFacts($('getting'), W.gettingThere)) {
       drop('sec-getting');
-    } else if (has(W.stops)) {
-      const start = W.stops[0];
+    } else if (has(W.stops) && W.stops.some(mapped)) {
+      const start = W.stops.filter(mapped)[0];
       const link = $('startLink');
       link.href = 'https://www.google.com/maps/search/?api=1&query=' + start.lat + ',' + start.lon;
       link.textContent = 'Open the start in Google Maps';
@@ -121,6 +122,19 @@
     if (has(W.shorterOption)) {
       $('shorter').textContent = W.shorterOption;
       $('shorter').hidden = false;
+    }
+
+    // Walks that join on to this one — the same lift station, usually.
+    if (has(W.related)) {
+      const el = $('related');
+      W.related.forEach((r, i) => {
+        if (i) el.appendChild(document.createTextNode(' '));
+        const a = document.createElement('a');
+        a.href = 'walk.html?walk=' + encodeURIComponent(r.id);
+        a.textContent = r.label;
+        el.appendChild(a);
+      });
+      el.hidden = false;
     }
 
     /* ------------------------------------------------------ facilities */
@@ -171,13 +185,13 @@
         const track = NP.drawTrack(map, W.line, W.colour);
         map.fitBounds(track.getBounds(), { padding: [34, 34] });
       }
-      stopMarkers = (W.stops || []).map((s) =>
-        L.marker([s.lat, s.lon], {
-          icon: NP.stopIcon(s), title: s.name, alt: 'Stop ' + s.n + ', ' + s.name
-        }).addTo(map).bindPopup(
-          '<b>' + s.n + '. ' + s.name + '</b><span>' +
-          (s.alt ? s.alt + ' m · ' : '') + (s.leg || '') + '</span>')
-      );
+      stopMarkers = (W.stops || []).map((s) => mapped(s)
+        ? L.marker([s.lat, s.lon], {
+            icon: NP.stopIcon(s), title: s.name, alt: 'Stop ' + s.n + ', ' + s.name
+          }).addTo(map).bindPopup(
+            '<b>' + s.n + '. ' + s.name + '</b><span>' +
+            (s.alt ? s.alt + ' m · ' : '') + (s.leg || '') + '</span>')
+        : null);
     }
 
     /* ----------------------------------------------------------- stops */
@@ -208,7 +222,7 @@
 
         li.querySelector('.stop').addEventListener('click', () => toggle(i));
         const showBtn = li.querySelector('.detail .btn');
-        if (map) {
+        if (map && mapped(s)) {
           showBtn.addEventListener('click', () => {
             map.setView([s.lat, s.lon], 16, { animate: true });
             stopMarkers[i].openPopup();
@@ -235,7 +249,8 @@
 
     /* --------------------------------------------------------- profile */
 
-    const profileable = hasLine && has(W.stops) && W.stops.every((s) => s.alt > 0);
+    const profileable = hasLine && has(W.stops) &&
+                        W.stops.every((s) => s.alt > 0 && mapped(s));
     if (!profileable) drop('sec-profile'); else buildProfile(W);
 
     /* ---------------------------------------------------- my location */
@@ -275,12 +290,19 @@
         return;
       }
 
-      let nearest = 0, nd = Infinity;
+      let nearest = -1, nd = Infinity;
       W.stops.forEach((s, i) => {
+        if (!mapped(s)) return;
         const d = NP.metres(lat, lon, s.lat, s.lon);
         $('dist-' + i).textContent = NP.fmtDist(d);
         if (d < nd) { nd = d; nearest = i; }
       });
+      if (nearest < 0) {
+        waBig.textContent = map ? 'You are on the map' : 'Location found';
+        waSm.textContent = 'Accurate to about ' + Math.round(accuracy) +
+          ' m. None of the stops on this walk have coordinates yet, so there are no distances to give.';
+        return;
+      }
 
       const s = W.stops[nearest];
       if (nd < 150) {

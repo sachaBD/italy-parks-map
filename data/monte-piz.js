@@ -149,4 +149,9 @@
   shorterOption: 'The track line is traced by eye from the route map and positioned approximately, so treat it as the shape of the walk rather than a navigation aid.',
   lastLift:      null,
 
+  related: [
+    { id: 'saltria-return',
+      label: 'Ended up down at Saltria instead? The way back up to the gondola →' }
+  ],
+
 };

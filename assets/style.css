@@ -293,3 +293,6 @@ a{color:var(--green-700)}
 /* Shown in place of the map if Leaflet cannot be reached. */
 .mapless{margin:0;padding:22px 18px;background:#F3F1EA;color:var(--ink-2);
   font-size:14.5px;border-bottom:1px solid var(--rule)}
+
+.related{background:#F1EEE4;border-left-color:var(--ink-2)}
+.related a{font-weight:600}
