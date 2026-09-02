@@ -249,9 +249,19 @@
 
     /* --------------------------------------------------------- profile */
 
-    const profileable = hasLine && has(W.stops) &&
-                        W.stops.every((s) => s.alt > 0 && mapped(s));
-    if (!profileable) drop('sec-profile'); else buildProfile(W);
+    // A height profile only makes sense for stops that are actually on the
+    // track and in walking order. Landmarks placed off to one side — a peak
+    // above the route, say — would otherwise be projected onto whatever
+    // vertex happens to be nearest and throw the distance axis out.
+    const profilePts = (hasLine && has(W.stops)) ? W.stops.map((s) => {
+      if (!mapped(s) || !(s.alt > 0)) return null;
+      const vi = NP.nearestVertex(W.line, s.lat, s.lon);
+      const off = NP.metres(s.lat, s.lon, W.line[vi][0], W.line[vi][1]);
+      return off > 150 ? null : { s: s, vi: vi };
+    }).filter(Boolean).sort((a, b) => a.vi - b.vi) : [];
+
+    // Two spot heights joined by a straight line is not a profile.
+    if (profilePts.length < 3) drop('sec-profile'); else buildProfile(W, profilePts);
 
     /* ---------------------------------------------------- my location */
 
@@ -378,7 +388,7 @@
 
   /* ------------------------------------------------------------ profile */
 
-  function buildProfile(W) {
+  function buildProfile(W, stopsOn) {
     const svg = $('profile');
     const Wd = 640, Ht = 210;
     const L_ = 48, R_ = 14, T_ = 16, B_ = 34;
@@ -391,8 +401,8 @@
     // distance quoted at the top of the page.
     const totalKm = W.distanceKm || drawnKm;
     const scale = totalKm / drawnKm;
-    const at = W.stops.map((s) => (cum[NP.nearestVertex(W.line, s.lat, s.lon)] / 1000) * scale);
-    const alts = W.stops.map((s) => s.alt);
+    const at = stopsOn.map((p) => (cum[p.vi] / 1000) * scale);
+    const alts = stopsOn.map((p) => p.s.alt);
     const lo = Math.floor((Math.min.apply(null, alts) - 80) / 100) * 100;
     const hi = Math.ceil((Math.max.apply(null, alts) + 80) / 100) * 100;
 
@@ -410,8 +420,8 @@
 
     const pts = at.map((km, i) => x(km).toFixed(1) + ',' + y(alts[i]).toFixed(1));
 
-    g += '<polygon points="' + x(0).toFixed(1) + ',' + y(lo).toFixed(1) + ' ' +
-         pts.join(' ') + ' ' + x(totalKm).toFixed(1) + ',' + y(lo).toFixed(1) +
+    g += '<polygon points="' + x(at[0]).toFixed(1) + ',' + y(lo).toFixed(1) + ' ' +
+         pts.join(' ') + ' ' + x(at[at.length - 1]).toFixed(1) + ',' + y(lo).toFixed(1) +
          '" fill="#DCEADF"/>';
     g += '<polyline points="' + pts.join(' ') +
          '" fill="none" stroke="#1F7A4C" stroke-width="2.5" stroke-linejoin="round"/>';
@@ -421,17 +431,18 @@
       g += '<line x1="' + cx.toFixed(1) + '" y1="' + cy.toFixed(1) + '" x2="' + cx.toFixed(1) +
            '" y2="' + y(lo).toFixed(1) + '" stroke="#1F7A4C" stroke-width="1" stroke-dasharray="3 3" opacity=".45"/>' +
            '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) +
-           '" r="9" fill="' + (W.stops[i].kind === 'lift' ? '#4A453D' : '#14563A') +
+           '" r="9" fill="' + (stopsOn[i].s.kind === 'lift' ? '#4A453D'
+                              : stopsOn[i].s.kind === 'hut' ? '#A63A25' : '#14563A') +
            '" stroke="#fff" stroke-width="2"/>' +
            '<text x="' + cx.toFixed(1) + '" y="' + (cy + 3.5).toFixed(1) +
-           '" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">' + W.stops[i].n + '</text>' +
+           '" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">' + stopsOn[i].s.n + '</text>' +
            '<text x="' + cx.toFixed(1) + '" y="' + (Ht - 12) +
            '" text-anchor="middle" font-size="11" fill="#59635C">' + km.toFixed(1) + '</text>';
     });
 
     g += '<line x1="' + L_ + '" y1="' + y(lo).toFixed(1) + '" x2="' + (Wd - R_) +
          '" y2="' + y(lo).toFixed(1) + '" stroke="#9AA69D" stroke-width="1"/>';
-    g += '<text x="' + (L_ - 9) + '" y="' + (T_ + 4) +
+    g += '<text x="' + (L_ - 9) + '" y="10' +
          '" text-anchor="end" font-size="11" fill="#59635C">m</text>';
     g += '<text x="' + (Wd - R_) + '" y="' + (T_ + 4) +
          '" text-anchor="end" font-size="11" fill="#59635C">km walked</text>';

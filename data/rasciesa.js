@@ -40,6 +40,8 @@
     ['Climb',          '180 m up and the same back down'],
     ['Getting up',     'The Resciesa funicular from Ortisei'],
     ['Terrain',        'Open ridge and alp pasture, on made tracks'],
+    ['Trails',         'Number 10 along the crest, 31 and 35 on the southern flank'],
+    ['Summits',        'Rasciesa di Fuori 2281 m on this loop; Rasciesa di Dentro 2317 m further east'],
     ['Outlook',        'South across Val Gardena to Seceda and the Odle']
   ],
 
@@ -51,7 +53,7 @@
     { n: 1, name: 'Resciesa funicular, top station', alt: 2122,
       lat: 46.59794, lon: 11.67942,
       leg:  'The start and the finish',
-      note: 'The funicular climbs straight out of Ortisei to the ridge. The circuit begins and ends here, so it can be walked either way round.',
+      note: 'The funicular climbs straight out of Ortisei to the ridge and lands at the Chalet Restaurant Resciesa, so there is food at the start and finish as well as halfway. The circuit begins and ends here and can be walked either way round.',
       kind: 'lift' },
     { n: 2, name: 'Piz da Ciastel / Schlosskofel', alt: 2204,
       lat: 46.60847, lon: 11.67625,
@@ -62,10 +64,10 @@
       leg:  'About 1.4 km along the ridge, 20 to 30 minutes on the flat',
       note: 'The refuge on the Resciesa alp, rebuilt and reopened in 2010. Two double rooms and three shared rooms sleeping 4, 8 and 14, so it works as an overnight as well as a lunch stop. Open roughly mid-May to mid-October, and again from December to April for the winter season. Its position here is worked out from the published distance west of the station rather than a surveyed coordinate, so expect it within a few hundred metres.',
       kind: 'hut' },
-    { n: 4, name: 'Western turn', alt: 0,
+    { n: 4, name: 'Rasciesa di Fuori / Ausserraschötz', alt: 2281,
       lat: 46.60068, lon: 11.65287,
-      leg:  'The far end of the circuit',
-      note: 'Where the outward leg turns and the return line starts back east, a little lower down the slope. The Rasciesa di Fuori summit, 2283 m, stands just above.' }
+      leg:  'The far end of the circuit, and its high point',
+      note: 'The outer summit of the ridge, marked by a large cross and a viewpoint. Trail 10 runs along the crest to it; the return leg is the parallel path a little lower on the southern flank. A short way beyond stands the Capela dl Crist, the Heiligkreuz chapel at 2202 m.' }
   ],
 
   line: [
@@ -92,7 +94,7 @@
   ],
 
   facilities: [
-    ['food',    'Food and drink', 'Utia de Resciesa, about 1.4 km along the ridge'],
+    ['food',    'Food and drink', 'Chalet Restaurant Resciesa at the station, Utia de Resciesa on the ridge'],
     ['beds',    'Accommodation',  'Utia de Resciesa sleeps 30 across five rooms'],
     ['lift',    'Lift access',    'Resciesa funicular from Ortisei'],
     ['lookout', 'Lookouts',       'South the whole way, to Seceda and the Odle']
@@ -109,7 +111,12 @@
     'Emergency number in Italy is 112.'
   ],
 
-  shorterOption: '',
+  shorterOption: 'The ridge carries a second circuit east of the station, around Rasciesa di Dentro / Innerraschötz, 2317 m — ' +
+                 'the higher of the two summits. Trail 35 runs east past the Malga Cason / Saltner Hütte to the Forcella di Valluzza, ' +
+                 'the Flitzer Scharte at 2107 m, with the climb to Rasciesa di Dentro above it. Carrying on east from there reaches the ' +
+                 'Rifugio Brogles and then the Rifugio delle Odle / Geisler Hütte, which is the long way round to Seceda. ' +
+                 'That eastern loop is not drawn on the map here — it has been read off a panorama map, which gives names and trail ' +
+                 'numbers but no positions worth drawing a line from.',
   lastLift: null,
 
   related: [
