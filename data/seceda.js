@@ -57,7 +57,7 @@
   /* The five stops, in walking order. */
   stops: [
     {
-      n: 1, name: 'Seceda ridge', alt: 2519, lat: 46.6068, lon: 11.7268,
+      n: 1, name: 'Seceda ridge', alt: 2519, lat: 46.59784, lon: 11.72506,
       leg: 'Cable-car top station, the start',
       note: 'Walk out to the cliff edge before you turn east. The escarpment drops away to the north and the Odle wall runs the length of the skyline. From here the whole route stays on the sunny southern side, so there is no shade and no water until the first hut.',
       kind: 'lift'
@@ -88,16 +88,23 @@
     }
   ],
 
-  /* Indicative track line. Shaping points between the stops so the
-     drawn route follows the shape of the walk rather than cutting
-     straight across the basins. Not a survey trace. */
+  /* Traced off the AllTrails screenshot in sources/seceda/, which is
+     georeferenced there to about 10 m. Indicative, not a survey trace:
+     it measures 6.0 km against the published 7.8 because a line drawn
+     at 3 m per pixel cannot show the switchbacks below Pieralongia. */
   line: [
-    [46.6068, 11.7268], [46.6050, 11.7295], [46.6028, 11.7318],
-    [46.6008, 11.7345], [46.5993, 11.7372], [46.5981, 11.7395],
-    [46.5978, 11.7420], [46.5980, 11.7445], [46.5974, 11.7477],
-    [46.5952, 11.7500], [46.5930, 11.7522], [46.5905, 11.7548],
-    [46.5888, 11.7570], [46.5874, 11.7583], [46.5866, 11.7555],
-    [46.5858, 11.7522], [46.5852, 11.7490], [46.5849, 11.7454]
+    [46.59784, 11.72506], [46.59895, 11.72513], [46.60038, 11.72732],
+    [46.60046, 11.73233], [46.60077, 11.73475], [46.60015, 11.73589],
+    [46.59993, 11.73699], [46.59855, 11.73914], [46.59849, 11.74105],
+    [46.5989, 11.74207], [46.59894, 11.74399], [46.59739, 11.74641],
+    [46.59725, 11.74684], [46.59727, 11.74833], [46.59807, 11.74985],
+    [46.59812, 11.75138], [46.59848, 11.75248], [46.59865, 11.76245],
+    [46.59935, 11.76462], [46.59856, 11.76456], [46.59832, 11.7637],
+    [46.5956, 11.75961], [46.59312, 11.75954], [46.5925, 11.75897],
+    [46.59067, 11.75817], [46.58975, 11.75753], [46.58919, 11.75755],
+    [46.58846, 11.75811], [46.58823, 11.758], [46.588, 11.75654],
+    [46.58798, 11.75459], [46.58728, 11.75326], [46.58718, 11.75205],
+    [46.58665, 11.75029], [46.58659, 11.74798], [46.58482, 11.74528]
   ],
 
   /* Facilities along the way. */
@@ -130,5 +137,5 @@
   shorterOption: 'For a shorter day, drop south from the ridge past the Daniel and Fermeda huts and pick up the Col Raiser gondola directly. It cuts roughly an hour but misses Pieralongia and Rifugio Firenze, which are the best of the walk.',
 
   /* Assumed last descent, used for the countdown in the alert. */
-  lastGondola: [17, 15]
+  lastLift: [17, 15]
 };

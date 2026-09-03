@@ -454,7 +454,7 @@
 
   function liftCountdown(W) {
     const el = $('liftCount');
-    const last = W.lastLift || W.lastGondola;
+    const last = W.lastLift;
     if (!last || !el) return;
 
     const now = NP.clockAt(SITE.timeZone || 'Europe/Rome');
