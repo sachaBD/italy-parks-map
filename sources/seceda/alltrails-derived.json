@@ -1,0 +1,229 @@
+{
+ "source": "sources/seceda/alltrails-seceda-firenze-colraiser.png",
+ "method": "north-up screenshot georeferenced from two published control points",
+ "control_points": [
+  {
+   "name": "Grosse Fermeda summit 2873 m",
+   "pixel": [
+    715.5,
+    844.4
+   ],
+   "coord": [
+    46.602484,
+    11.751551
+   ],
+   "from": "Wikipedia, 46 36 09 N / 11 45 06 E"
+  },
+  {
+   "name": "Rifugio Firenze / Regensburger Huette 2037 m",
+   "pixel": [
+    888.5,
+    1399.7
+   ],
+   "coord": [
+    46.587535,
+    11.758329
+   ],
+   "from": "published hut coordinate"
+  }
+ ],
+ "fit": {
+  "metres_per_pixel": 2.9974,
+  "scale_from_x": 3.0023,
+  "scale_from_y": 2.9926,
+  "scale_disagreement_pct": 0.32,
+  "residual_at_control_points_m": 1.4,
+  "scale_bar_check": "200 m spans 66.8 px outer edge to outer edge = 2.994 m/px",
+  "independent_check": "traced route end 46.58482,11.74528 lands 10 m from the Col Raiser coordinate already in data/seceda.js, which was not used in the fit"
+ },
+ "derived_positions": {
+  "seceda_route_start": [
+   46.59784,
+   11.72506
+  ],
+  "col_raiser_route_end": [
+   46.58482,
+   11.74528
+  ],
+  "rifugio_firenze": [
+   46.58753,
+   11.75828
+  ],
+  "brogles_hut": [
+   46.61007,
+   11.72766
+  ],
+  "rifugio_juac": [
+   46.57336,
+   11.74999
+  ],
+  "grosse_fermeda_summit": [
+   46.60249,
+   11.75156
+  ],
+  "pieralongia_summit": [
+   46.59737,
+   11.75044
+  ],
+  "juacturm_summit": [
+   46.57688,
+   11.75993
+  ],
+  "pela_de_vit_summit": [
+   46.57643,
+   11.76288
+  ]
+ },
+ "traced_route": {
+  "note": "Seceda top station to Col Raiser, traced from the drawn line",
+  "traced_km": 6.02,
+  "published_km": 7.8,
+  "why_shorter": "the drawn line generalises the switchbacks below Pieralongia; quote the published distance, not the traced one",
+  "line": [
+   [
+    46.59784,
+    11.72506
+   ],
+   [
+    46.59895,
+    11.72513
+   ],
+   [
+    46.60038,
+    11.72732
+   ],
+   [
+    46.60046,
+    11.73233
+   ],
+   [
+    46.60077,
+    11.73475
+   ],
+   [
+    46.60015,
+    11.73589
+   ],
+   [
+    46.59993,
+    11.73699
+   ],
+   [
+    46.59855,
+    11.73914
+   ],
+   [
+    46.59849,
+    11.74105
+   ],
+   [
+    46.5989,
+    11.74207
+   ],
+   [
+    46.59894,
+    11.74399
+   ],
+   [
+    46.59739,
+    11.74641
+   ],
+   [
+    46.59725,
+    11.74684
+   ],
+   [
+    46.59727,
+    11.74833
+   ],
+   [
+    46.59807,
+    11.74985
+   ],
+   [
+    46.59812,
+    11.75138
+   ],
+   [
+    46.59848,
+    11.75248
+   ],
+   [
+    46.59865,
+    11.76245
+   ],
+   [
+    46.59935,
+    11.76462
+   ],
+   [
+    46.59856,
+    11.76456
+   ],
+   [
+    46.59832,
+    11.7637
+   ],
+   [
+    46.5956,
+    11.75961
+   ],
+   [
+    46.59312,
+    11.75954
+   ],
+   [
+    46.5925,
+    11.75897
+   ],
+   [
+    46.59067,
+    11.75817
+   ],
+   [
+    46.58975,
+    11.75753
+   ],
+   [
+    46.58919,
+    11.75755
+   ],
+   [
+    46.58846,
+    11.75811
+   ],
+   [
+    46.58823,
+    11.758
+   ],
+   [
+    46.588,
+    11.75654
+   ],
+   [
+    46.58798,
+    11.75459
+   ],
+   [
+    46.58728,
+    11.75326
+   ],
+   [
+    46.58718,
+    11.75205
+   ],
+   [
+    46.58665,
+    11.75029
+   ],
+   [
+    46.58659,
+    11.74798
+   ],
+   [
+    46.58482,
+    11.74528
+   ]
+  ]
+ }
+}
