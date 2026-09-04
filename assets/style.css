@@ -198,7 +198,9 @@ a{color:var(--green-700)}
 .stop .pin{width:28px;height:28px;font-size:14px}
 .stop .nm{font-size:16px;font-weight:600;display:block}
 .stop .leg{font-size:13.5px;color:var(--ink-2)}
-.stop .dist{font-size:15px;font-weight:700;color:var(--you);white-space:nowrap}
+.stop .figs{text-align:right}
+.stop .along{display:block;font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.stop .dist{display:block;font-size:15px;font-weight:700;color:var(--you);white-space:nowrap}
 .stops li.open{background:var(--green-050)}
 .stops li.open .stop{background:none}
 .stops li.open{box-shadow:inset 4px 0 0 var(--green-500)}

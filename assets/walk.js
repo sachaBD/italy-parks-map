@@ -194,6 +194,32 @@
         : null);
     }
 
+    /* ------------------------------------------- how far along each stop is */
+
+    // Where along the walk each stop falls, as { vi, km }, or undefined
+    // for a stop that is not on the track. A landmark set off to one side — a
+    // peak above the route, say — would otherwise be projected onto
+    // whatever vertex happens to be nearest and claim a position it has
+    // no business having; 150 m is the line between the two.
+    //
+    // The drawn line cuts corners the real path does not, so it measures
+    // short. Stretching it onto the distance quoted at the top of the page
+    // keeps these figures and the profile's axis telling the same story.
+    // Both read from this one array, so they cannot drift apart.
+    const cum = hasLine ? NP.cumulative(W.line) : [0];
+    const drawnKm = cum[cum.length - 1] / 1000;
+    const totalKm = W.distanceKm || drawnKm;
+    const along = [];
+    if (drawnKm > 0 && has(W.stops)) {
+      const scale = totalKm / drawnKm;
+      W.stops.forEach((s, i) => {
+        if (!mapped(s)) return;
+        const vi = NP.nearestVertex(W.line, s.lat, s.lon);
+        if (NP.metres(s.lat, s.lon, W.line[vi][0], W.line[vi][1]) > 150) return;
+        along[i] = { vi: vi, km: (cum[vi] / 1000) * scale };
+      });
+    }
+
     /* ----------------------------------------------------------- stops */
 
     const stopsEl = $('stops');
@@ -208,7 +234,10 @@
           '<button type="button" class="stop" aria-expanded="false" aria-controls="detail-' + i + '">' +
             '<span class="pin' + (s.kind ? ' ' + s.kind : '') + '">' + s.n + '</span>' +
             '<span><span class="nm"></span><span class="leg"></span></span>' +
-            '<span class="dist" id="dist-' + i + '"></span>' +
+            '<span class="figs">' +
+              '<span class="along"></span>' +
+              '<span class="dist" id="dist-' + i + '"></span>' +
+            '</span>' +
           '</button>' +
           '<div class="detail" id="detail-' + i + '" hidden>' +
             '<span class="txt"></span>' +
@@ -219,6 +248,11 @@
         li.querySelector('.leg').textContent = s.leg || '';
         li.querySelector('.detail .txt').textContent = s.note || '';
         li.querySelector('.detail .alt').textContent = s.alt ? s.alt + ' m above sea level' : '';
+        // "Start" rather than "0.0 km in", which reads like a missing number.
+        if (along[i]) {
+          li.querySelector('.along').textContent =
+            along[i].km < 0.05 ? 'Start' : along[i].km.toFixed(1) + ' km in';
+        }
 
         li.querySelector('.stop').addEventListener('click', () => toggle(i));
         const showBtn = li.querySelector('.detail .btn');
@@ -253,15 +287,12 @@
     // track and in walking order. Landmarks placed off to one side — a peak
     // above the route, say — would otherwise be projected onto whatever
     // vertex happens to be nearest and throw the distance axis out.
-    const profilePts = (hasLine && has(W.stops)) ? W.stops.map((s) => {
-      if (!mapped(s) || !(s.alt > 0)) return null;
-      const vi = NP.nearestVertex(W.line, s.lat, s.lon);
-      const off = NP.metres(s.lat, s.lon, W.line[vi][0], W.line[vi][1]);
-      return off > 150 ? null : { s: s, vi: vi };
-    }).filter(Boolean).sort((a, b) => a.vi - b.vi) : [];
+    const profilePts = W.stops ? W.stops.map((s, i) => (along[i] && s.alt > 0)
+      ? { s: s, vi: along[i].vi, km: along[i].km } : null)
+      .filter(Boolean).sort((a, b) => a.vi - b.vi) : [];
 
     // Two spot heights joined by a straight line is not a profile.
-    if (profilePts.length < 3) drop('sec-profile'); else buildProfile(W, profilePts);
+    if (profilePts.length < 3) drop('sec-profile'); else buildProfile(profilePts, totalKm);
 
     /* ---------------------------------------------------- my location */
 
@@ -388,20 +419,11 @@
 
   /* ------------------------------------------------------------ profile */
 
-  function buildProfile(W, stopsOn) {
+  function buildProfile(stopsOn, totalKm) {
     const svg = $('profile');
     const Wd = 640, Ht = 210;
     const L_ = 48, R_ = 14, T_ = 16, B_ = 34;
-    const cum = NP.cumulative(W.line);
-    const drawnKm = cum[cum.length - 1] / 1000;
-
-    // The drawn line cuts corners the real path does not, so it measures
-    // short. Stretch it onto the real walking distance, which keeps the
-    // spacing between stops roughly right and the axis honest against the
-    // distance quoted at the top of the page.
-    const totalKm = W.distanceKm || drawnKm;
-    const scale = totalKm / drawnKm;
-    const at = stopsOn.map((p) => (cum[p.vi] / 1000) * scale);
+    const at = stopsOn.map((p) => p.km);
     const alts = stopsOn.map((p) => p.s.alt);
     const lo = Math.floor((Math.min.apply(null, alts) - 80) / 100) * 100;
     const hi = Math.ceil((Math.max.apply(null, alts) + 80) / 100) * 100;
