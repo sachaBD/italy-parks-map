@@ -304,7 +304,7 @@
       W.stops.forEach((s, i) => {
         if (!mapped(s)) return;
         const d = NP.metres(lat, lon, s.lat, s.lon);
-        $('dist-' + i).textContent = NP.fmtDist(d);
+        $('dist-' + i).textContent = NP.fmtDist(d) + ' away';
         if (d < nd) { nd = d; nearest = i; }
       });
       if (nearest < 0) {
