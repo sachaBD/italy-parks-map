@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------
    Seceda ridge walk
    Coordinates are WGS84 decimal degrees (lat, lon).
-   See data/TEMPLATE.js for what each field means.
+   See tools/walk-template.js for what each field means.
    --------------------------------------------------------------- */
 (window.WALKS = window.WALKS || {})['seceda'] = {
 

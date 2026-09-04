@@ -11,7 +11,7 @@
 
    To finish it: run a GPX through tools/gpx-to-walk.js and paste the
    result into `line`, `distanceKm`, `centre` and `zoom`, then fill in
-   `stops`. See data/TEMPLATE.js.
+   `stops`. See tools/walk-template.js.
    --------------------------------------------------------------- */
 (window.WALKS = window.WALKS || {})['monte-piz'] = {
 

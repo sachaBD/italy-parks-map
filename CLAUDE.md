@@ -34,9 +34,18 @@ to.
 ## Data
 
 Everything shown comes from `data/<id>.js`, registered in `WALK_IDS` in
-`data/site.js`. See `data/TEMPLATE.js`. Empty fields are dropped from the
-page, so a walk can go up in stages. `kind` on a stop may be `lift` or
-`hut`, which colours its pin.
+`data/site.js`. Empty fields are dropped from the page, so a walk can go
+up in stages.
+
+To add one, copy `tools/walk-template.js`, which annotates every field.
+`tools/ADDING-A-WALK.md` is the procedure; read it first.
+
+**Run `node tools/check-walks.js` before calling a walk done.** Four
+things are wrong silently and it catches all four: a stop more than 150 m
+off the line loses its distance figures and its point on the profile;
+stops out of walking order make those figures count backwards; a wrong
+`distanceKm` rescales every number on the page; a line whose points are
+too far apart cannot place a walker on it. Nothing throws for any of them.
 
 Tools: `tools/gpx-to-walk.js` for a GPX, `tools/place-route.js` for a
 screenshot-traced route plus one anchor coordinate, `tools/trace-route.py`

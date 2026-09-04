@@ -14,9 +14,10 @@ a track grade, numbered stops and a "before you go" checklist.
   mapped tracks. Tap a track to open its guide.
 - **A guide per walk**: track map on Leaflet with topographic, aerial and
   street base maps; the route as a dashed track line with numbered stops.
-- **Your location** from the browser, shown as a dot with an accuracy ring,
-  plus a live straight-line distance to every stop and a plain-language note
-  about the nearest one. Falls back to pasting coordinates if there is no fix.
+- **Your location** from the browser, shown as a dot with an accuracy ring.
+  Once you are on the track, every stop says how much further there is to
+  walk to it and whether it is ahead or behind. Falls back to pasting
+  coordinates if there is no fix.
 - **A height profile** generated from the stop altitudes.
 - Prints tidily, and still works with the map switched off.
 
@@ -32,19 +33,29 @@ a track grade, numbered stops and a "before you go" checklist.
 | `assets/style.css` | All styling |
 | `data/site.js` | Site title, intro, and **the register of walk ids** |
 | `data/<id>.js` | **One walk.** Everything the guide shows |
-| `data/TEMPLATE.js` | A documented blank to copy |
+| `tools/walk-template.js` | An annotated blank to copy |
+| `tools/ADDING-A-WALK.md` | How to add one, and what fails silently |
+| `tools/check-walks.js` | Checks every walk against what the pages read |
 | `tools/gpx-to-walk.js` | Turns a GPX track into walk data |
+| `tools/trace-route.py` | Lifts a route out of a map screenshot |
+| `tools/TRACING.md` | How that tracing works, and its traps |
 | `assets/vendor/leaflet/` | Leaflet 1.9.4, vendored (BSD-2-Clause) |
 
 ## Adding a walk
 
-1. Copy `data/TEMPLATE.js` to `data/<id>.js` and fill it in. The template
-   documents every field.
+1. Copy `tools/walk-template.js` to `data/<id>.js` and fill it in. The
+   template documents every field.
 2. Add `'<id>'` to `WALK_IDS` in `data/site.js`.
+3. Run `node tools/check-walks.js <id>`.
 
 That is the whole procedure — both pages build themselves from the register.
 Ids from the URL are checked against `WALK_IDS` before they are turned into a
 file path, so a walk is only reachable once it is listed there.
+
+`tools/ADDING-A-WALK.md` has the detail, and in particular the four things
+that go wrong without the page ever saying so. Step 3 is there because of
+them: a stop 200 m off the line, or stops listed out of order, cost you a
+section of the page in silence.
 
 Anything left empty is left out of the page, so a walk can go up in stages. A
 walk with an empty `line` is shown as "route being mapped" rather than
@@ -64,11 +75,15 @@ elevation summary for the glance table, and any waypoints in the file as
 candidate stops. It simplifies the trace to about 60 points, which is plenty
 for a line that is drawn as indicative rather than as a survey trace.
 
-Without a GPX, a dozen hand-picked points that follow the shape of the path
-are enough. A hand-drawn line measures shorter than the real path because it
-cuts corners, so set `distanceKm` to the real walking distance — the height
-profile is scaled onto it so the axis agrees with the figure quoted at the top
-of the page.
+Without a GPX, trace it off a screenshot of the route — `tools/trace-route.py`,
+written up in `tools/TRACING.md`.
+
+A drawn line measures shorter than the real path because it cuts corners, so
+set `distanceKm` to the real walking distance. Every distance on the page is
+stretched onto it: the profile axis, the "km in" beside each stop, and the
+distance a walker on the hill sees to the next hut. Aim for a point about
+every 100 m in the line itself — a walker is placed on the walk by dropping a
+perpendicular onto it, so a long chord across a bend misplaces them.
 
 ## Publishing
 
