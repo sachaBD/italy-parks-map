@@ -130,5 +130,5 @@
   shorterOption: 'For a shorter day, drop south from the ridge past the Daniel and Fermeda huts and pick up the Col Raiser gondola directly. It cuts roughly an hour but misses Pieralongia and Rifugio Firenze, which are the best of the walk.',
 
   /* Assumed last descent, used for the countdown in the alert. */
-  lastGondola: [17, 15]
+  lastLift: [17, 15]
 };

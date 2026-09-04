@@ -54,8 +54,9 @@
   centre: [46.5960, 11.7420],   // map centre before the track loads
   zoom:   14,
 
-  // Stops in walking order. `kind: 'lift'` colours the marker dark for a
-  // lift station; leave it off for huts, summits and junctions.
+  // Stops in walking order. `kind` colours the marker: 'lift' dark for a
+  // lift station, 'hut' red for a refuge. Leave it off for summits,
+  // saddles and junctions.
   stops: [
     {
       n: 1, name: '', alt: 0, lat: 0, lon: 0,
