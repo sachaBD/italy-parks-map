@@ -43,6 +43,75 @@ window.NP = (function () {
     return out;
   }
 
+  // Where a point sits on a track: the foot of the perpendicular onto the
+  // nearest segment, not the nearest vertex. Vertices on a traced line can
+  // sit 250 m apart, and snapping to one throws the along-track figure out
+  // by half of that.
+  //
+  // Returns { alongM, offM } — metres along the line to the foot, and
+  // metres from the point to the line — or null for an empty line.
+  //
+  // A route that touches itself has more than one honest answer: the Tre
+  // Cime loop runs through the same junction at 4.2 km and again at 5.1 km,
+  // and standing on it the geometry cannot say which. What settles it is
+  // that people walk. Pass `from` as { alongM, moveM } — where the walker
+  // was, and the furthest they could have got since — and only places they
+  // could actually have reached are considered. A gap too long to bound, or
+  // a first fix, passes no `from` and falls back to plain nearest.
+  function projectOnLine(line, lat, lon, from) {
+    if (!line || line.length < 2) return null;
+    const r = Math.PI / 180, R = 6371008.8;
+    const kLat = R * r, kLon = R * r * Math.cos(lat * r);   // metres per degree, locally
+    const cum = cumulative(line);
+    const total = cum[cum.length - 1];
+    // On a circuit, 100 m before the finish is 100 m from the start, not a
+    // lap apart. Only treat it as one if the line really does close.
+    const loop = metres(line[0][0], line[0][1],
+                        line[line.length - 1][0], line[line.length - 1][1]) < 50;
+    const apart = (a, b) => {
+      const d = Math.abs(a - b);
+      return loop ? Math.min(d, total - d) : d;
+    };
+
+    const hits = [];
+    for (let i = 1; i < line.length; i++) {
+      const ax = (line[i - 1][1] - lon) * kLon, ay = (line[i - 1][0] - lat) * kLat;
+      const bx = (line[i][1] - lon) * kLon,     by = (line[i][0] - lat) * kLat;
+      const dx = bx - ax, dy = by - ay;
+      const len2 = dx * dx + dy * dy;
+      const t = len2 === 0 ? 0 : Math.max(0, Math.min(1, (-ax * dx + -ay * dy) / len2));
+      const fx = ax + t * dx, fy = ay + t * dy;
+      hits.push({
+        offM: Math.hypot(fx, fy),
+        alongM: cum[i - 1] + t * (cum[i] - cum[i - 1])
+      });
+    }
+
+    let plain = hits[0];
+    for (const h of hits) if (h.offM < plain.offM) plain = h;
+
+    // Continuity only ever settles a near-tie in the geometry. A candidate
+    // has to be both somewhere the walker could have reached and as close
+    // to them as the best reading is, or it loses — otherwise a fix that
+    // jumps (a phone waking, a walk resumed) would be dragged back to a
+    // stretch of path the walker is nowhere near.
+    let best = plain;
+    if (from && typeof from.alongM === 'number' && from.moveM > 0) {
+      const TIE = 60;
+      let pick = null;
+      for (const h of hits) {
+        if (apart(h.alongM, from.alongM) > from.moveM) continue;
+        if (h.offM > plain.offM + TIE) continue;
+        // Of what is left, whichever best continues the walk. Measured
+        // without the wrap, so arriving at the finish of a circuit reads as
+        // the end of it rather than the start.
+        if (!pick || Math.abs(h.alongM - from.alongM) < Math.abs(pick.alongM - from.alongM)) pick = h;
+      }
+      if (pick) best = pick;
+    }
+    return { alongM: best.alongM, offM: best.offM };
+  }
+
   function nearestVertex(line, lat, lon) {
     let best = 0, bd = Infinity;
     line.forEach((p, i) => {
@@ -215,7 +284,7 @@ window.NP = (function () {
   function pad2(n) { return String(n).padStart(2, '0'); }
 
   return {
-    metres, bearingWord, fmtDist, cumulative, nearestVertex,
+    metres, bearingWord, fmtDist, cumulative, nearestVertex, projectOnLine,
     knownId, loadWalks, isDraft,
     hasLeaflet, basemaps, makeMap, drawTrack, stopIcon,
     watchLocation, parseCoords, clockAt, pad2

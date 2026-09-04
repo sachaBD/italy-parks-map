@@ -305,6 +305,28 @@
     }
     let youDot = null, youRing = null, watchId = null, firstFix = true;
 
+    // Where the last on-track fix put us, in metres along the line, and when.
+    // Kept so a walker standing on a junction the route uses twice is placed
+    // on the leg they could have walked to, not the one across the way.
+    let youAlongM = null, youAlongAt = 0;
+
+    // Nobody covers ground faster than this on foot, and a fix is never
+    // exact, so allow a little slack on top. After a couple of minutes with
+    // no fix the bound is too loose to be worth anything and we start again.
+    const WALK_MS = 2.5, SLACK_M = 60, STALE_MS = 120000;
+
+    // Beyond this the walker is not on the walk, and a distance measured
+    // along it would be fiction — a straight line is the honest answer.
+    const ON_TRACK_M = 300;
+
+    // A signed distance along the track, in the walk's own direction. Walk
+    // the route backwards and the words swap over, which still reads right.
+    function alongWords(km) {
+      const m = Math.abs(km) * 1000;
+      if (m < 60) return 'here';
+      return NP.fmtDist(m) + (km > 0 ? ' on' : ' back');
+    }
+
     function showYou(lat, lon, accuracy) {
       band.classList.remove('bad');
       band.classList.add('on');
@@ -331,11 +353,26 @@
         return;
       }
 
+      // Are we on the track, and if so how far into the walk?
+      const now = Date.now();
+      const gap = now - youAlongAt;
+      const from = (youAlongM !== null && gap < STALE_MS)
+        ? { alongM: youAlongM, moveM: (gap / 1000) * WALK_MS + SLACK_M } : null;
+      const on = hasLine ? NP.projectOnLine(W.line, lat, lon, from) : null;
+      const onTrack = !!on && on.offM <= ON_TRACK_M;
+      youAlongM = onTrack ? on.alongM : null;
+      youAlongAt = onTrack ? now : 0;
+      const youKm = onTrack ? (on.alongM / 1000) * (drawnKm > 0 ? totalKm / drawnKm : 1) : null;
+
       let nearest = -1, nd = Infinity;
       W.stops.forEach((s, i) => {
         if (!mapped(s)) return;
         const d = NP.metres(lat, lon, s.lat, s.lon);
-        $('dist-' + i).textContent = NP.fmtDist(d) + ' away';
+        // On the track, how far there is left to walk beats how far it is
+        // as the crow flies — and which side of you it lies on beats both.
+        $('dist-' + i).textContent = (onTrack && along[i])
+          ? alongWords(along[i].km - youKm)
+          : NP.fmtDist(d) + ' away';
         if (d < nd) { nd = d; nearest = i; }
       });
       if (nearest < 0) {
@@ -348,13 +385,18 @@
       const s = W.stops[nearest];
       if (nd < 150) {
         waBig.textContent = 'You are at ' + s.name;
-        waSm.textContent = nearest < W.stops.length - 1
+        waSm.textContent = (nearest < W.stops.length - 1
           ? 'Next: ' + W.stops[nearest + 1].name + ', ' + (W.stops[nearest + 1].leg || '').toLowerCase() + '.'
-          : 'The end of the walk.';
+          : 'The end of the walk.') +
+          (onTrack ? ' ' + youKm.toFixed(1) + ' km into the walk.' : '');
       } else if (nd < 30000) {
         waBig.textContent = NP.fmtDist(nd) + ' from ' + s.name;
-        waSm.textContent = 'Head ' + NP.bearingWord(lat, lon, s.lat, s.lon) +
-          '. Straight line, so the walk is longer. Fix accurate to about ' + Math.round(accuracy) + ' m.';
+        waSm.textContent = (onTrack
+          ? 'About ' + youKm.toFixed(1) + ' km into the walk, so the figures beside the ' +
+            'stops follow the track from here.'
+          : 'Head ' + NP.bearingWord(lat, lon, s.lat, s.lon) +
+            '. Straight line, so the walk is longer.') +
+          ' Fix accurate to about ' + Math.round(accuracy) + ' m.';
       } else {
         waBig.textContent = NP.fmtDist(nd) + ' from the walk';
         waSm.textContent = 'You are a long way off. Distances will sharpen up when you get there.';
