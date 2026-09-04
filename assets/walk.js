@@ -368,11 +368,13 @@
       W.stops.forEach((s, i) => {
         if (!mapped(s)) return;
         const d = NP.metres(lat, lon, s.lat, s.lon);
-        // On the track, how far there is left to walk beats how far it is
-        // as the crow flies — and which side of you it lies on beats both.
+        // How much further there is to walk, and which side of you it lies
+        // on. Off the track there is no such figure, and a straight line
+        // over a ridge is not a substitute — it reads like a distance along
+        // the walk and is nothing of the kind. Better to say nothing; the
+        // band above still says where you are.
         $('dist-' + i).textContent = (onTrack && along[i])
-          ? alongWords(along[i].km - youKm)
-          : NP.fmtDist(d) + ' away';
+          ? alongWords(along[i].km - youKm) : '';
         if (d < nd) { nd = d; nearest = i; }
       });
       if (nearest < 0) {
