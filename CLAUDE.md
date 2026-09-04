@@ -39,4 +39,7 @@ page, so a walk can go up in stages. `kind` on a stop may be `lift` or
 `hut`, which colours its pin.
 
 Tools: `tools/gpx-to-walk.js` for a GPX, `tools/place-route.js` for a
-screenshot-traced route plus one anchor coordinate.
+screenshot-traced route plus one anchor coordinate, `tools/trace-route.py`
+to do the tracing itself — colour, scale bar, icon positions, the trace,
+and the placement with its corroboration check. The method is written up
+in `tools/TRACING.md`; read that before tracing anything.
